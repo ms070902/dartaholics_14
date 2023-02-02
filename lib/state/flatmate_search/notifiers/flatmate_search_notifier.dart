@@ -38,12 +38,12 @@ class FlatmateSearchNotifier extends StateNotifier<bool> {
         .ref()
         .child(userId)
         .child('images')
-        .child(fileName1);
+        .child(fileName2);
     final originalFileRef3 = FirebaseStorage.instance
         .ref()
         .child(userId)
         .child('images')
-        .child(fileName1);
+        .child(fileName3);
 
     try {
       ///upload image

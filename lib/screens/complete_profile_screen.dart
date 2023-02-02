@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csc_picker/csc_picker.dart';
+import 'package:dartaholics/state/auth/constants/firebase_collection_name.dart';
+import 'package:dartaholics/state/user_info/backend/user_payload.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartaholics/screens/navigation_screen.dart';
 import 'package:dartaholics/screens/selection_screen.dart';
 import 'package:flutter/material.dart';
@@ -257,16 +261,47 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       style: _validPhoneNumber
                           ? TextButton.styleFrom(backgroundColor: Colors.green)
                           : TextButton.styleFrom(backgroundColor: Colors.grey),
-                      onPressed: () {
+                      onPressed: () async {
                         String number = '+91${_phoneNumberController.text}';
+                        String gender =
+                            choosenId.toString() == "0" ? 'Male' : 'Female';
+                        String location = cityValue.toString();
+                        var locationUser =
+                            await getLatLong(cityValue.toString());
+                        String lat = locationUser['latitude'];
+                        String long = locationUser['longitude'];
+                        String userId =
+                            FirebaseAuth.instance.currentUser?.uid ?? '';
+                        String? displayName =
+                            FirebaseAuth.instance.currentUser?.displayName;
+                        String? email =
+                            FirebaseAuth.instance.currentUser?.email;
 
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            child: const NavigationScreen(),
-                            type: PageTransitionType.fade,
-                          ),
-                        );
+                        try {
+                          final payload = UserInfoPayload(
+                            userId: userId,
+                            displayName: displayName,
+                            email: email,
+                            gender: gender,
+                            location: location,
+                            lat: lat,
+                            long: long,
+                            contact: number,
+                          );
+                          await FirebaseFirestore.instance
+                              .collection(FirebaseCollectionName.users)
+                              .add(payload);
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              child: const HomeScreen(),
+                              type: PageTransitionType.fade,
+                            ),
+                          );
+                        } catch (_) {
+                          return;
+                        }
+
                         _validPhoneNumber = false;
 
                         _phoneNumberController.clear();
