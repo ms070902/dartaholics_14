@@ -8,14 +8,16 @@ import 'package:flutter/foundation.dart' show immutable;
 class Flatmate {
   final String postId;
   final UserId userId;
-  final Map<String, dynamic> location;
+  final String location;
+  final String lat;
+  final String long;
   final DateTime availableFrom;
   final String cost;
   final String fileUrl1;
   final String fileUrl2;
   final String fileUrl3;
   final String contact;
-  final Map<String, bool> amenities;
+  final List<dynamic> amenities;
 
   Flatmate(
     this.postId,
@@ -28,5 +30,7 @@ class Flatmate {
     this.fileUrl3,
     this.contact,
     this.amenities,
+    this.lat,
+    this.long,
   );
 }
