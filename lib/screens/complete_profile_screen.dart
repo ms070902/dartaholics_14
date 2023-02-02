@@ -291,10 +291,11 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           await FirebaseFirestore.instance
                               .collection(FirebaseCollectionName.users)
                               .add(payload);
+                          // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,
                             PageTransition(
-                              child: const HomeScreen(),
+                              child: const NavigationScreen(),
                               type: PageTransitionType.fade,
                             ),
                           );
