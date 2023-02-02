@@ -1,11 +1,12 @@
-import 'package:dartaholics/screens/swipe_screen.dart';
+import 'package:dartaholics/screens/from_bottom_nav.dart';
 import 'package:flutter/material.dart';
-
-import 'login_signup_choice.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class RoomRommateSelectionScreen extends StatefulWidget {
-  const RoomRommateSelectionScreen({super.key});
+  const RoomRommateSelectionScreen({super.key, required this.location});
+
+  final String location;
   @override
   State<RoomRommateSelectionScreen> createState() =>
       _RoomRommateSelectionScreenState();
@@ -13,8 +14,40 @@ class RoomRommateSelectionScreen extends StatefulWidget {
 
 class _RoomRommateSelectionScreenState
     extends State<RoomRommateSelectionScreen> {
+  Map userlocation = {};
+
+  void getLatLong(String place) async {
+    final uri = Uri.parse(
+        'https://nominatim.openstreetmap.org/search?q=$place&format=json');
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+
+      if (data.length > 0) {
+        var latitude = data[0]['lat'];
+        var longitude = data[0]['lon'];
+        Map location = {'latitude': '$latitude', 'longitude': '$longitude'};
+        userlocation = location;
+        setState(() {});
+      }
+    } else {
+      print('Request failed with status: ${response.statusCode}');
+    }
+  }
+
+  @override
+  void initState() {
+    getLatLong(widget.location);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // getLatLong(widget.location);
+    // print("yes");
+    // print(widget.location);
+    // print(userlocation);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -32,7 +65,11 @@ class _RoomRommateSelectionScreenState
             const SizedBox(
               height: 20,
             ),
-            Image.asset("assets/images/8458.jpg"),
+            Image.asset(
+              "assets/roommate.png",
+              width: 100,
+              height: 100,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -47,8 +84,9 @@ class _RoomRommateSelectionScreenState
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const LoginSignupChoiceScreen()));
+                              builder: (context) => const FromBottomNavBar(
+                                    searchingRoomMate: false,
+                                  )));
                     },
                     child: const Text("Room/Apartment"),
                   ),
@@ -60,7 +98,9 @@ class _RoomRommateSelectionScreenState
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SwipeScreen()));
+                              builder: (context) => const FromBottomNavBar(
+                                    searchingRoomMate: true,
+                                  )));
                     },
                     child: const Text("Roommate"),
                   ),

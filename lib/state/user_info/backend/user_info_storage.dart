@@ -36,18 +36,19 @@ class UserInfoStorage {
       }
 
       ///user doesn't exist
-      final payload = UserInfoPayload(
-        userId: userId,
-        displayName: displayName,
-        email: email,
-      );
-      await FirebaseFirestore.instance
-          .collection(
-            FirebaseCollectionName.users,
-          )
-          .add(
-            payload,
-          );
+      // final payload = UserInfoPayload(
+      //   userId: userId,
+      //   displayName: displayName,
+      //   email: email,
+      //   location: ,
+      // );
+      // await FirebaseFirestore.instance
+      //     .collection(
+      //       FirebaseCollectionName.users,
+      //     )
+      //     .add(
+      //       payload,
+      //     );
       return true;
     } catch (e) {
       return false;

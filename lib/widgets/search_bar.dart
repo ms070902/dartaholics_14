@@ -8,6 +8,7 @@ class SearchBar extends StatelessWidget {
     required this.controller,
     required this.title,
     required this.onChanged,
+    required this.onTap,
   }) : super(key: key);
 
   final double height;
@@ -15,12 +16,13 @@ class SearchBar extends StatelessWidget {
   final TextEditingController controller;
   final Function onChanged;
   final String title;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width,
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.only(left: 10, right: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: Row(
@@ -40,6 +42,14 @@ class SearchBar extends StatelessWidget {
                 hintStyle: TextStyle(color: Colors.grey[600]),
                 contentPadding: const EdgeInsets.fromLTRB(5.0, 0, 20.0, 0),
               ),
+            ),
+          ),
+          const Spacer(),
+          InkWell(
+            onTap: onTap,
+            child: const Icon(
+              Icons.done,
+              color: Colors.green,
             ),
           ),
         ],

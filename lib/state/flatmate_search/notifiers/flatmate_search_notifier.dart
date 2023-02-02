@@ -18,7 +18,9 @@ class FlatmateSearchNotifier extends StateNotifier<bool> {
     required File file1,
     required File file2,
     required File file3,
-    required Map<String, dynamic> location,
+    required String location,
+    required String lat,
+    required String long,
     required Map<String, bool> amenities,
     required String cost,
     required DateTime availableFrom,
@@ -38,12 +40,12 @@ class FlatmateSearchNotifier extends StateNotifier<bool> {
         .ref()
         .child(userId)
         .child('images')
-        .child(fileName1);
+        .child(fileName2);
     final originalFileRef3 = FirebaseStorage.instance
         .ref()
         .child(userId)
         .child('images')
-        .child(fileName1);
+        .child(fileName3);
 
     try {
       ///upload image
@@ -54,6 +56,8 @@ class FlatmateSearchNotifier extends StateNotifier<bool> {
       final payload = FlatmateSearchPayload(
         userId: userId,
         location: location,
+        lat: lat,
+        long: long,
         availableFrom: availableFrom,
         cost: cost,
         fileUrl1: await originalFileRef1.getDownloadURL(),
