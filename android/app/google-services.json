@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61161662378",
+    "project_id": "dartaholics-tsec-hacks",
+    "storage_bucket": "dartaholics-tsec-hacks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61161662378:android:ccf9034e00e7133a5fadd3",
+        "android_client_info": {
+          "package_name": "com.example.dartaholics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61161662378-767d0busjtfd33iv0c0qhrb0t89qshhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf19Xemf_0NPk5Rzn4Y3tKeeTPSWN2E8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61161662378-767d0busjtfd33iv0c0qhrb0t89qshhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
