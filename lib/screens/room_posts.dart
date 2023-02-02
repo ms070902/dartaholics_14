@@ -1,8 +1,15 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartaholics/state/auth/constants/firebase_collection_name.dart';
+import 'package:dartaholics/state/auth/models/itemClass.dart';
+import 'package:dartaholics/state/flatmate_search/flatmate_payload.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 import '../widgets/griditem.dart';
 
@@ -18,6 +25,7 @@ class _RoomAdsState extends State<RoomAds> {
   TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
   var _rentController = TextEditingController();
   var _numberController = TextEditingController(text: "+91 9004137508");
+  var _descriptionController = TextEditingController();
   late TimeOfDay time;
   File? demo;
   File? demo1;
@@ -32,28 +40,6 @@ class _RoomAdsState extends State<RoomAds> {
   List occupancy = ['Single', 'Shared', 'Any'];
   List gender = ['Male', 'Female', 'Any'];
   List options = ['Show', 'Hide'];
-  List ammenities = [
-    'Tv',
-    'Fridge',
-    'Kitchen',
-    'Wifi',
-    'Machine',
-    'AC',
-    'Backup',
-    'Cook',
-    'Parking'
-  ];
-  // List image = [
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png',
-  //   'assets/flat.png'
-  // ];
 
   void onPickImageButtonClicked() async {
     final tempImage =
@@ -123,18 +109,29 @@ class _RoomAdsState extends State<RoomAds> {
     loadList();
   }
 
+// List ammenities = [
+//     'Tv',
+//     'Fridge',
+//     'Kitchen',
+//     'Wifi',
+//     'Machine',
+//     'AC',
+//     'Backup',
+//     'Cook',
+//     'Parking'
+//   ];
   loadList() {
     itemList = [];
     selectedList = [];
-    itemList.add(Item("assets/television.png", 1));
-    itemList.add(Item("assets/fridge.png", 2));
-    itemList.add(Item("assets/kitchen.png", 3));
-    itemList.add(Item("assets/wifi.png", 4));
-    itemList.add(Item("assets/washingmachine.png", 5));
-    itemList.add(Item("assets/airconditioner.png", 6));
-    itemList.add(Item("assets/thunderbolt.png", 7));
-    itemList.add(Item("assets/placeholder.png", 8));
-    itemList.add(Item("assets/cooking.png", 9));
+    itemList.add(Item("assets/television.png", 1, 'Tv'));
+    itemList.add(Item("assets/fridge.png", 2, 'Fridge'));
+    itemList.add(Item("assets/kitchen.png", 3, 'Kitchen'));
+    itemList.add(Item("assets/wifi.png", 4, 'Wifi'));
+    itemList.add(Item("assets/washingmachine.png", 5, 'Machine'));
+    itemList.add(Item("assets/airconditioner.png", 6, 'AC'));
+    itemList.add(Item("assets/thunderbolt.png", 7, 'Backup'));
+    itemList.add(Item("assets/placeholder.png", 8, 'Cook'));
+    itemList.add(Item("assets/cooking.png", 9, 'Parking'));
   }
 
   @override
@@ -159,7 +156,7 @@ class _RoomAdsState extends State<RoomAds> {
                     labelText: 'Where is your flat located?'),
                 autofocus: false,
                 maxLength: 10,
-                controller: _rentController,
+                controller: _locationController,
                 // keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   if (value.length == 10) {
@@ -525,7 +522,7 @@ class _RoomAdsState extends State<RoomAds> {
                                   },
                                   key: Key(itemList[index].rank.toString())),
                             ),
-                            Text("${ammenities[index]}")
+                            Text("${itemList[index].ammenity}")
                           ],
                         ),
                       );
@@ -612,7 +609,7 @@ class _RoomAdsState extends State<RoomAds> {
                 autofocus: false,
                 maxLength: 100,
                 maxLines: 1,
-                controller: _rentController,
+                controller: _descriptionController,
                 // keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   if (value.length == 10) {
@@ -641,11 +638,77 @@ class _RoomAdsState extends State<RoomAds> {
                     ),
                     backgroundColor: Colors.green,
                   ),
-                  onPressed: () {
-                    print(selectedList);
-                    print("Hi");
-                    // onNextButtonClicked();
-                    // context.pushNamed("confirmOrder");
+                  onPressed: () async {
+                    // final currentUser = FirebaseAuth.instance.currentUser!.uid ?? 'hh';
+                    String location = _locationController.text;
+                    String rent = _rentController.text;
+                    File img1 = demo!.absolute;
+                    File img2 = demo1!.absolute;
+                    File img3 = demo2!.absolute;
+                    DateTime date = selectedDate;
+                    List<Item> amenities = selectedList;
+                    String contact = _numberController.text;
+                    String description = _descriptionController.text;
+
+                    final fileName1 = const Uuid().v4();
+                    final fileName2 = const Uuid().v4();
+                    final fileName3 = const Uuid().v4();
+                    // final originalFileRef1 = FirebaseStorage.instance
+                    //     .ref()
+                    //     // .child("pmMGmk1eLZSKhgEfFjl1DtzHxdb2")
+                    //     .child('images')
+                    //     .child(fileName1);
+                    // final originalFileRef2 = FirebaseStorage.instance
+                    //     .ref()
+                    //     // .child('pmMGmk1eLZSKhgEfFjl1DtzHxdb2')
+                    //     .child('images')
+                    //     .child(fileName2);
+                    // final originalFileRef3 = FirebaseStorage.instance
+                    //     .ref()
+                    //     // .child('pmMGmk1eLZSKhgEfFjl1DtzHxdb2')
+                    //     .child('images')
+                    //     .child(fileName3);
+
+                    try {
+                      print(selectedList);
+                      print(amenities);
+                      ///upload image
+                      // final fileUrl1 = await originalFileRef1.putFile(img1);
+                      // final fileUrl2 = await originalFileRef2.putFile(img2);
+                      // final fileUrl3 = await originalFileRef3.putFile(img3);
+
+                      final ref1 = firebase_storage.FirebaseStorage.instance
+                      .ref('/images/1');
+                      final ref2 = firebase_storage.FirebaseStorage.instance
+                          .ref('/images/2');
+                      final ref3 = firebase_storage.FirebaseStorage.instance
+                          .ref('/images/3');
+                      final fileUrl1 = ref1.putFile(img1);
+                      final fileUrl2 = ref2.putFile(img2);
+                      final fileUrl3 = ref3.putFile(img3);
+
+
+                      final payload = FlatmatePayload(
+                        userId: 'pmMGmk1eLZSKhgEfFjl1DtzHxdb2',
+                        location: location,
+                        availableFrom: date,
+                        cost: rent,
+                        fileUrl1: await ref1.getDownloadURL(),
+                        fileUrl2: await ref2.getDownloadURL(),
+                        fileUrl3: await ref3.getDownloadURL(),
+                        contact: contact,
+                        description: description,
+                      );
+
+                      await FirebaseFirestore.instance
+                          .collection(FirebaseCollectionName.flatmateSearch)
+                          .add(payload);
+                      print('done');
+
+                      // context.pushNamed("confirmOrder");
+                    } catch (e) {
+                      print('error' + e.toString());
+                    }
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 5),
@@ -664,9 +727,4 @@ class _RoomAdsState extends State<RoomAds> {
   }
 }
 
-class Item {
-  String imageUrl;
-  int rank;
 
-  Item(this.imageUrl, this.rank);
-}

@@ -1,3 +1,4 @@
+import 'package:dartaholics/state/auth/models/itemClass.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/room_posts.dart';

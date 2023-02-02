@@ -53,24 +53,24 @@ class FlatmateSearchNotifier extends StateNotifier<bool> {
       final fileUrl2 = await originalFileRef2.putFile(file2);
       final fileUrl3 = await originalFileRef3.putFile(file3);
 
-      final payload = FlatmateSearchPayload(
-        userId: userId,
-        location: location,
-        lat: lat,
-        long: long,
-        availableFrom: availableFrom,
-        cost: cost,
-        fileUrl1: await originalFileRef1.getDownloadURL(),
-        fileUrl2: await originalFileRef2.getDownloadURL(),
-        fileUrl3: await originalFileRef3.getDownloadURL(),
-        contact: contact,
-        amenities: amenities,
-      );
-      await FirebaseFirestore.instance
-          .collection(
-            FirebaseCollectionName.flatmateSearch,
-          )
-          .add(payload);
+      // final payload = FlatmateSearchPayload(
+      //   userId: userId,
+      //   location: location,
+      //   lat: lat,
+      //   long: long,
+      //   availableFrom: availableFrom,
+      //   cost: cost,
+      //   fileUrl1: await originalFileRef1.getDownloadURL(),
+      //   fileUrl2: await originalFileRef2.getDownloadURL(),
+      //   fileUrl3: await originalFileRef3.getDownloadURL(),
+      //   contact: contact,
+      //   amenities: amenities,
+      // );
+      // await FirebaseFirestore.instance
+      //     .collection(
+      //       FirebaseCollectionName.flatmateSearch,
+      //     )
+      //     .add(payload);
       return true;
     } catch (_) {
       return false;

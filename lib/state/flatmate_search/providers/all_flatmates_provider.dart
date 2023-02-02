@@ -28,19 +28,21 @@ final allFlatmatesProvider = StreamProvider<Iterable<Flatmate>>((ref) {
 
       List<dynamic> amenities = doc.data()[FirebaseFieldName.amenities];
       String cost = doc.data()[FirebaseFieldName.cost] as String;
+      String desc = doc.data()[FirebaseFieldName.description] as String;
       return Flatmate(
-        postId,
-        userId,
-        location,
-        availableFrom,
-        cost,
-        fileUrl1,
-        fileUrl2,
-        fileUrl3,
-        contact,
-        amenities,
-        lat,
-        long,
+        postId: postId,
+        userId: userId,
+        location: location,
+        availableFrom: availableFrom,
+        cost: cost,
+        fileUrl1: fileUrl1,
+        fileUrl2: fileUrl2,
+        fileUrl3: fileUrl3,
+        contact: contact,
+        amenities: amenities,
+        lat: lat,
+        long: long,
+        description: desc,
       );
     });
     controller.sink.add(flats);

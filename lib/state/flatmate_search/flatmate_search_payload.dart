@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:dartaholics/state/auth/constants/firebase_field_name.dart';
 import 'package:dartaholics/state/auth/typedef.dart';
@@ -13,9 +14,9 @@ class FlatmateSearchPayload extends MapView<String, dynamic> {
     required String long,
     required DateTime availableFrom,
     required String cost,
-    required String fileUrl1,
-    required String fileUrl2,
-    required String fileUrl3,
+    required File fileUrl1,
+    required File fileUrl2,
+    required File fileUrl3,
     required String contact,
     required List<dynamic> amenities,
   }) : super({
