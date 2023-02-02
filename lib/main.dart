@@ -20,6 +20,7 @@ void main() async {
     providers: [
       prov.ChangeNotifierProvider(create: (_) => CardProvider()),
       prov.ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
+      prov.ChangeNotifierProvider(create: (_) => LocationProvider()),
     ],
     child: const ProviderScope(
       child: MyApp(),
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dartaholics',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
