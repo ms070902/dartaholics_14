@@ -9,20 +9,19 @@ class UserInfoPayload extends MapView<String, dynamic> {
     required UserId userId,
     required String? displayName,
     required String? email,
-    required String? gender,
-    required Map<String, String> location,
-    required String? contact,
+    String? gender,
+    String? location,
+    String? lat,
+    String? long,
+    String? contact,
   }) : super({
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.displayName: displayName ?? '',
           FirebaseFieldName.email: email ?? '',
           FirebaseFieldName.gender: gender ?? '',
-          FirebaseFieldName.location: {
-            for (final loc in location.entries)
-              {
-                loc.key: loc.value,
-              }
-          },
+          FirebaseFieldName.location: location ?? '',
+          FirebaseFieldName.lat: lat ?? '0',
+          FirebaseFieldName.long: long ?? '0.0',
           FirebaseFieldName.contact: contact,
         });
 }

@@ -8,6 +8,8 @@ class FirebaseFieldName {
   static const email = 'email';
   static const gender = 'gender';
   static const location = 'location';
+  static const lat = 'lat';
+  static const long = 'long';
   static const contact = 'contact';
   static const cost = 'cost';
   static const budget = 'budget';
