@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "61161662378-767d0busjtfd33iv0c0qhrb0t89qshhd.apps.googleusercontent.com",
+          "client_id": "61161662378-0v9sgunujkabgrhdmd1r2mp9bv5mmmin.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dartaholics",
+            "certificate_hash": "d60973eaf47a1155b3930fb2ea693f5e0e00c3b7"
+          }
+        },
+        {
+          "client_id": "61161662378-mu8laurqk1mjnq382p5i4pqgsldh1bm1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,49 @@
             {
               "client_id": "61161662378-767d0busjtfd33iv0c0qhrb0t89qshhd.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "61161662378-64dgo8qkhptl7ufu4eavs9pjif7vlfgf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dartaholics14"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61161662378:android:a7ed44b673e875125fadd3",
+        "android_client_info": {
+          "package_name": "com.example.dartaholics_14"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61161662378-mu8laurqk1mjnq382p5i4pqgsldh1bm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf19Xemf_0NPk5Rzn4Y3tKeeTPSWN2E8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61161662378-767d0busjtfd33iv0c0qhrb0t89qshhd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "61161662378-64dgo8qkhptl7ufu4eavs9pjif7vlfgf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dartaholics14"
+              }
             }
           ]
         }

@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '61161662378',
     projectId: 'dartaholics-tsec-hacks',
     storageBucket: 'dartaholics-tsec-hacks.appspot.com',
+    androidClientId: '61161662378-0v9sgunujkabgrhdmd1r2mp9bv5mmmin.apps.googleusercontent.com',
     iosClientId: '61161662378-de7tnms979fva17rtfr0ooioc5ncs89k.apps.googleusercontent.com',
     iosBundleId: 'com.example.dartaholics',
   );

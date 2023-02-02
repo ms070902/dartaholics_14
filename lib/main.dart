@@ -1,49 +1,43 @@
 import 'package:dartaholics/providers/ad_created_provider.dart';
-import 'package:dartaholics/screens/complete_profile_screen.dart';
+import 'package:dartaholics/screens/login_signup_choice.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
+import 'package:provider/provider.dart' as prov;
+import 'state/auth/backend/google_sign_in.dart';
+import 'state/providers/card_providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(prov.MultiProvider(
+    providers: [
+      prov.ChangeNotifierProvider(create: (_) => CardProvider()),
+      prov.ChangeNotifierProvider(create: (_) => GoogleSignInProvider()),
+    ],
+    child: const ProviderScope(
+      child: MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LocationProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.green,
-        ),
-        home: const CompleteProfile(),
+    return MaterialApp(
+      title: 'Dartaholics',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
       ),
+      home: const LoginSignupChoiceScreen(),
     );
   }
 }
