@@ -17,7 +17,7 @@ class FlatmateSearchPayload extends MapView<String, dynamic> {
     required String fileUrl2,
     required String fileUrl3,
     required String contact,
-    required Map<String, bool> amenities,
+    required List<dynamic> amenities,
   }) : super({
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.location: location,
@@ -30,11 +30,6 @@ class FlatmateSearchPayload extends MapView<String, dynamic> {
           FirebaseFieldName.fileUrl2: fileUrl2,
           FirebaseFieldName.fileUrl3: fileUrl3,
           FirebaseFieldName.contact: contact,
-          FirebaseFieldName.amenities: {
-            for (final amenity in amenities.entries)
-              {
-                amenity.key: amenity.value,
-              }
-          },
+          FirebaseFieldName.amenities: amenities,
         });
 }

@@ -43,17 +43,17 @@ class _RoomAdsState extends State<RoomAds> {
     'Cook',
     'Parking'
   ];
-  List image = [
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png'
-  ];
+  // List image = [
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png',
+  //   'assets/flat.png'
+  // ];
 
   void onPickImageButtonClicked() async {
     final tempImage =

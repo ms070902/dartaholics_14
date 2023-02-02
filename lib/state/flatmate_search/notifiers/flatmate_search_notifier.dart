@@ -21,7 +21,7 @@ class FlatmateSearchNotifier extends StateNotifier<bool> {
     required String location,
     required String lat,
     required String long,
-    required Map<String, bool> amenities,
+    required List<dynamic> amenities,
     required String cost,
     required DateTime availableFrom,
     required String contact,

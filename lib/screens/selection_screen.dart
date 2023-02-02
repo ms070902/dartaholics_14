@@ -1,4 +1,4 @@
-import 'package:dartaholics/screens/from_bottom_nav.dart';
+ import 'package:dartaholics/screens/from_bottom_nav.dart';
 import 'package:dartaholics/screens/room_apartment_screen.dart';
 import 'package:dartaholics/screens/roomate_screen.dart';
 import 'package:flutter/material.dart';
