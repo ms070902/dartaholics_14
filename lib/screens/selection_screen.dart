@@ -66,7 +66,7 @@ class _RoomRommateSelectionScreenState
               height: 20,
             ),
             Image.asset(
-              "assets/roommate.png",
+              "assets/images/8458.jpg",
               width: 100,
               height: 100,
             ),

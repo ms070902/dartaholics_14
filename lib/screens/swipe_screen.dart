@@ -93,9 +93,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
                       ),
                     );
                   },
-                  itemChanged: (SwipeItem item, int index) {
-                    print("item: ${item.content.text}, index: $index");
-                  },
+                  itemChanged: (SwipeItem item, int index) {},
                   upSwipeAllowed: true,
                   fillSpace: true,
                 ),

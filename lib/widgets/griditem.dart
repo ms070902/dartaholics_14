@@ -34,10 +34,10 @@ class _GridItemState extends State<GridItem> {
             colorBlendMode: BlendMode.color,
           ),
           isSelected
-              ? Align(
+              ? const Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.check_circle,
                       color: Colors.blue,
