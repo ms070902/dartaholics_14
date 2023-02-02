@@ -1,4 +1,6 @@
 import 'package:dartaholics/screens/complete_profile_screen.dart';
+import 'package:dartaholics/screens/from_address_screen.dart';
+import 'package:dartaholics/screens/selection_screen.dart';
 import 'package:dartaholics/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -10,6 +12,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 class _HomeScreenState extends State<HomeScreen> {
   var _searchtextcontroller = TextEditingController();
   var _searchKey = '';
@@ -18,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
         body: SingleChildScrollView(
           child: Container(
             decoration: const BoxDecoration(color: Colors.green),
@@ -88,17 +93,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: "Search for a location",
                       onChanged: () {
                         if (_searchKey != _searchtextcontroller.text) {
-                          _searchKey = _searchtextcontroller.text;
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                child: const CompleteProfile(),
-                                type: PageTransitionType.fade,
-                              ),
-                            );
+                          setState(() {
+                            _searchKey = _searchtextcontroller.text;
                           });
+
+                          // WidgetsBinding.instance.addPostFrameCallback((_) {});
                         }
+                      },
+                      onTap: () {
+                        print("Hello");
+                        print(_searchtextcontroller.text);
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            child: FromAddressScreen(),
+                            type: PageTransitionType.fade,
+                          ),
+                        );
                       }),
                 ),
                 const SizedBox(
