@@ -3,11 +3,14 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:dartaholics/state/auth/constants/firebase_collection_name.dart';
 import 'package:dartaholics/state/user_info/backend/user_payload.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dartaholics/screens/navigation_screen.dart';
+import 'package:dartaholics/screens/selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 
+import '../widgets/custom_bottom_nav.dart';
 import 'home_screen.dart';
 
 class CompleteProfile extends StatefulWidget {
@@ -70,6 +73,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
         title: const Text("Complete Your Profile"),
         centerTitle: true,
       ),
+      // bottomNavigationBar: _buildBottomBar(),
+      // body: getBody(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
