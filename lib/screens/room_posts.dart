@@ -32,17 +32,7 @@ class _RoomAdsState extends State<RoomAds> {
   List occupancy = ['Single', 'Shared', 'Any'];
   List gender = ['Male', 'Female', 'Any'];
   List options = ['Show', 'Hide'];
-  List ammenities = [
-    'Tv',
-    'Fridge',
-    'Kitchen',
-    'Wifi',
-    'Machine',
-    'AC',
-    'Backup',
-    'Cook',
-    'Parking'
-  ];
+
   List image = [
     'assets/flat.png',
     'assets/flat.png',
@@ -123,18 +113,29 @@ class _RoomAdsState extends State<RoomAds> {
     loadList();
   }
 
+// List ammenities = [
+//     'Tv',
+//     'Fridge',
+//     'Kitchen',
+//     'Wifi',
+//     'Machine',
+//     'AC',
+//     'Backup',
+//     'Cook',
+//     'Parking'
+//   ];
   loadList() {
     itemList = [];
     selectedList = [];
-    itemList.add(Item("assets/television.png", 1));
-    itemList.add(Item("assets/fridge.png", 2));
-    itemList.add(Item("assets/kitchen.png", 3));
-    itemList.add(Item("assets/wifi.png", 4));
-    itemList.add(Item("assets/washingmachine.png", 5));
-    itemList.add(Item("assets/airconditioner.png", 6));
-    itemList.add(Item("assets/thunderbolt.png", 7));
-    itemList.add(Item("assets/placeholder.png", 8));
-    itemList.add(Item("assets/cooking.png", 9));
+    itemList.add(Item("assets/television.png", 1, 'Tv'));
+    itemList.add(Item("assets/fridge.png", 2, 'Fridge'));
+    itemList.add(Item("assets/kitchen.png", 3, 'Kitchen'));
+    itemList.add(Item("assets/wifi.png", 4, 'Wifi'));
+    itemList.add(Item("assets/washingmachine.png", 5, 'Machine'));
+    itemList.add(Item("assets/airconditioner.png", 6, 'AC'));
+    itemList.add(Item("assets/thunderbolt.png", 7, 'Backup'));
+    itemList.add(Item("assets/placeholder.png", 8, 'Cook'));
+    itemList.add(Item("assets/cooking.png", 9, 'Parking'));
   }
 
   @override
@@ -525,7 +526,7 @@ class _RoomAdsState extends State<RoomAds> {
                                   },
                                   key: Key(itemList[index].rank.toString())),
                             ),
-                            Text("${ammenities[index]}")
+                            Text("${itemList[index].ammenity}")
                           ],
                         ),
                       );
@@ -667,6 +668,7 @@ class _RoomAdsState extends State<RoomAds> {
 class Item {
   String imageUrl;
   int rank;
+  String ammenity;
 
-  Item(this.imageUrl, this.rank);
+  Item(this.imageUrl, this.rank, this.ammenity);
 }
