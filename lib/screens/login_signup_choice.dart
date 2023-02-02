@@ -5,6 +5,8 @@ import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'navigation_screen.dart';
+
 class LoginSignupChoiceScreen extends StatefulWidget {
   const LoginSignupChoiceScreen({super.key});
 
@@ -62,11 +64,12 @@ class _LoginSignupChoiceScreenState extends State<LoginSignupChoiceScreen> {
                 final provider =
                     Provider.of<GoogleSignInProvider>(context, listen: false);
                 var user = provider.googleLogin();
+
                 if (user != null) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CompleteProfile(),
+                      builder: (context) => const NavigationScreen(),
                     ),
                   );
                 }

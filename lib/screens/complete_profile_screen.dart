@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/ad_created_provider.dart';
 import '../widgets/custom_bottom_nav.dart';
 import 'home_screen.dart';
 
@@ -22,6 +24,7 @@ class CompleteProfile extends StatefulWidget {
 
 class _CompleteProfileState extends State<CompleteProfile> {
   var _phoneNumberController = TextEditingController();
+
   bool _validPhoneNumber = false;
 // Initial Selected Value
   String dropdownvalue = 'Mumbai';
@@ -66,6 +69,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final locationData = Provider.of<LocationProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -186,8 +190,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
                 setState(() {
                   cityValue = value;
-                  lat = "${location["latitude"]}";
-                  long = "${location["longitude"]}";
+                  // lat = "${location["latitude"]}";
+                  // long = "${location["longitude"]}";
                 });
               },
             ),
@@ -278,19 +282,21 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             FirebaseAuth.instance.currentUser?.email;
 
                         try {
-                          final payload = UserInfoPayload(
-                            userId: userId,
-                            displayName: displayName,
-                            email: email,
-                            gender: gender,
-                            location: location,
-                            lat: lat,
-                            long: long,
-                            contact: number,
-                          );
-                          await FirebaseFirestore.instance
-                              .collection(FirebaseCollectionName.users)
-                              .add(payload);
+                          // final payload = UserInfoPayload(
+                          //   userId: userId,
+                          //   displayName: displayName,
+                          //   email: email,
+                          //   gender: gender,
+                          //   location: location,
+                          //   lat: lat,
+                          //   long: long,
+                          //   contact: number,
+                          // );
+                          // await FirebaseFirestore.instance
+                          //     .collection(FirebaseCollectionName.users)
+                          //     .add(payload);
+                          locationData.changeAdStatus(true);
+
                           // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,

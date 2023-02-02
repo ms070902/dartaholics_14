@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '../providers/ad_created_provider.dart';
+import '../tabBarPage/tab1.dart';
+import '../tabBarPage/tab2.dart';
 
 class RoomRommateSelectionScreen extends StatefulWidget {
   const RoomRommateSelectionScreen({super.key, required this.location});
@@ -67,72 +69,87 @@ class _RoomRommateSelectionScreenState
 }
 
 class AdWidget extends StatefulWidget {
-  const AdWidget({
-    Key? key,
-  }) : super(key: key);
+  const AdWidget({Key? key}) : super(key: key);
 
   @override
-  State<AdWidget> createState() => _AdWidgetState();
+  _AdWidgetState createState() => _AdWidgetState();
 }
 
-class _AdWidgetState extends State<AdWidget> {
+class _AdWidgetState extends State<AdWidget>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          "Get Started",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Image.asset(
-          "assets/roommate.png",
-          width: 100,
-          height: 100,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      backgroundColor: Colors.green,
+      // appBar: AppBar(
+      //   title: Text('Tab bar Without Appbar'),
+      // ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FromBottomNavBar(
-                                searchingRoomMate: false,
-                              )));
-                },
-                child: const Text("Room/Apartment"),
+              SizedBox(height: 10),
+              Container(
+                // height: 50,
+                width: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                      child: TabBar(
+                        unselectedLabelColor: Colors.white,
+                        labelColor: Colors.black,
+                        indicatorColor: Colors.white,
+                        indicatorWeight: 1,
+                        indicator: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        controller: tabController,
+                        tabs: const [
+                          Tab(
+                            text: 'ROOMMATES',
+                          ),
+                          Tab(
+                            text: 'ROOMS',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(width: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FromBottomNavBar(
-                                searchingRoomMate: true,
-                              )));
-                },
-                child: const Text("Roommate"),
-              ),
+              Expanded(
+                child: TabBarView(
+                  controller: tabController,
+                  children: const [
+                    Tab1(),
+                    Tab2(),
+                  ],
+                ),
+              )
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
