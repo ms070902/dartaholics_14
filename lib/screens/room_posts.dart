@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
+import '../models/item.dart';
+import '../providers/ad_created_provider.dart';
 import '../widgets/griditem.dart';
 
 class RoomAds extends StatefulWidget {
@@ -126,6 +129,7 @@ class _RoomAdsState extends State<RoomAds> {
 
   @override
   Widget build(BuildContext context) {
+    final locationData = Provider.of<LocationProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -629,8 +633,9 @@ class _RoomAdsState extends State<RoomAds> {
                     backgroundColor: Colors.green,
                   ),
                   onPressed: () {
-                    print(selectedList);
-                    print("Hi");
+                    locationData.changeAdStatus(true);
+                    Navigator.of(context).pop();
+
                     // onNextButtonClicked();
                     // context.pushNamed("confirmOrder");
                   },
@@ -649,12 +654,4 @@ class _RoomAdsState extends State<RoomAds> {
       ),
     );
   }
-}
-
-class Item {
-  String imageUrl;
-  int rank;
-  String ammenity;
-
-  Item(this.imageUrl, this.rank, this.ammenity);
 }

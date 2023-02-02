@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../models/item.dart';
 import '../screens/room_posts.dart';
 
 class GridItem extends StatefulWidget {
