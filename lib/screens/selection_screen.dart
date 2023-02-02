@@ -87,7 +87,7 @@ class _RoomRommateSelectionScreenState
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FromBottomNavBar(
+                              builder: (context) => const FromBottomNavBar(
                                     searchingRoomMate: false,
                                   )));
                     },
@@ -101,7 +101,7 @@ class _RoomRommateSelectionScreenState
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FromBottomNavBar(
+                              builder: (context) => const FromBottomNavBar(
                                     searchingRoomMate: true,
                                   )));
                     },

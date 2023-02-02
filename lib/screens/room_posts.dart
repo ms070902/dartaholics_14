@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RoomAds extends StatefulWidget {
   const RoomAds({super.key});
@@ -10,6 +14,24 @@ class RoomAds extends StatefulWidget {
 class _RoomAdsState extends State<RoomAds> {
   var _locationController = TextEditingController();
   var _rentController = TextEditingController();
+  File? demo;
+
+  void onPickImageButtonClicked() async {
+    final tempImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (tempImage == null) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('An error occurred. Failed to pick image!'),
+      ));
+      return;
+    }
+
+    setState(() {
+      demo = File(tempImage.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +95,34 @@ class _RoomAdsState extends State<RoomAds> {
                 }
               },
             ),
+            const Text(
+              "Add Photo (Upload all 3 photos)",
+              style: TextStyle(fontSize: 17, color: Colors.green),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            (demo != null)
+                ? DottedBorder(
+                    child: Image.file(
+                      demo!.absolute,
+                      height: 250,
+                      width: 400,
+                      scale: 2,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  )
+                : DottedBorder(
+                    child: MaterialButton(
+                      onPressed: () async {
+                        // if (kIsWeb) {
+                        //   startweb();
+                        // } else {
+                        onPickImageButtonClicked();
+                      },
+                      child: const Icon(Icons.image),
+                    ),
+                  ),
           ],
         ),
       )),
