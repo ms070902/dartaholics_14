@@ -18,6 +18,8 @@ class FirebaseFieldName {
   static const fileUrl2 = 'file_url2';
   static const fileUrl3 = 'file_url3';
   static const amenities = 'amenities';
+  static const description = 'description';
+  static const userDPUrl = 'userDPUrl';
 
   const FirebaseFieldName._();
 }

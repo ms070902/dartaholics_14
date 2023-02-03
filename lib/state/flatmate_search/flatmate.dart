@@ -5,32 +5,28 @@ import 'package:dartaholics/state/auth/typedef.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
-class Flatmate {
+class Flatmate{
   final String postId;
   final UserId userId;
   final String location;
-  final String lat;
-  final String long;
   final DateTime availableFrom;
   final String cost;
   final String fileUrl1;
   final String fileUrl2;
   final String fileUrl3;
   final String contact;
-  final List<dynamic> amenities;
+  final String description;
 
-  Flatmate(
-    this.postId,
-    this.userId,
-    this.location,
-    this.availableFrom,
-    this.cost,
-    this.fileUrl1,
-    this.fileUrl2,
-    this.fileUrl3,
-    this.contact,
-    this.amenities,
-    this.lat,
-    this.long,
-  );
+  const Flatmate({
+    required this.postId,
+    required this.userId,
+    required this.location,
+    required this.availableFrom,
+    required this.cost,
+    required this.fileUrl1,
+    required this.fileUrl2,
+    required this.fileUrl3,
+    required this.contact,
+    required this.description,
+  });
 }

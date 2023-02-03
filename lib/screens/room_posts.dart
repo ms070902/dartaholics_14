@@ -1,6 +1,12 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartaholics/state/auth/constants/firebase_collection_name.dart';
+import 'package:dartaholics/state/auth/models/itemClass.dart';
+import 'package:dartaholics/state/flatmate_search/flatmate_payload.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +23,15 @@ class RoomAds extends StatefulWidget {
 }
 
 class _RoomAdsState extends State<RoomAds> {
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  final displayName = FirebaseAuth.instance.currentUser!.displayName;
+  final userDPUrl = FirebaseAuth.instance.currentUser!.photoURL;
+
   var _locationController = TextEditingController();
   TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
   var _rentController = TextEditingController();
   var _numberController = TextEditingController(text: "+91 9004137508");
+  var _descriptionController = TextEditingController();
   late TimeOfDay time;
   File? demo;
   File? demo1;
@@ -150,7 +161,7 @@ class _RoomAdsState extends State<RoomAds> {
                     labelText: 'Where is your flat located?'),
                 autofocus: false,
                 maxLength: 10,
-                controller: _rentController,
+                controller: _locationController,
                 // keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   if (value.length == 10) {
@@ -603,7 +614,7 @@ class _RoomAdsState extends State<RoomAds> {
                 autofocus: false,
                 maxLength: 100,
                 maxLines: 1,
-                controller: _rentController,
+                controller: _descriptionController,
                 // keyboardType: TextInputType.phone,
                 onChanged: (value) {
                   if (value.length == 10) {
@@ -632,9 +643,52 @@ class _RoomAdsState extends State<RoomAds> {
                     ),
                     backgroundColor: Colors.green,
                   ),
-                  onPressed: () {
-                    locationData.changeAdStatus(true);
-                    Navigator.of(context).pop();
+                  onPressed: () async {
+                    String location = _locationController.text;
+                    String cost = _rentController.text;
+                    String contact = _numberController.text;
+                    String description = _descriptionController.text;
+                    File img1 = demo!.absolute;
+                    File img2 = demo1!.absolute;
+                    File img3 = demo2!.absolute;
+                    DateTime date = selectedDate;
+
+                    final ref1 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/1');
+                    final ref2 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/2');
+                    final ref3 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/3');
+                    try {
+                      final file1 = ref1.putFile(img1);
+                      final file2 = ref1.putFile(img2);
+                      final file3 = ref1.putFile(img3);
+
+                      final payload = FlatmatePayload(
+                        userId: userId,
+                        location: location,
+                        availableFrom: date,
+                        cost: cost,
+                        fileUrl1: await ref1.getDownloadURL(),
+                        fileUrl2: await ref2.getDownloadURL(),
+                        fileUrl3: await ref3.getDownloadURL(),
+                        contact: contact,
+                        description: description,
+                        displayName: displayName ?? 'Flat Buddy',
+                        userDPURL: userDPUrl ?? '',
+                      );
+
+                      await FirebaseFirestore.instance
+                          .collection(FirebaseCollectionName.flatmateSearch)
+                          .add(
+                            payload,
+                          );
+
+                      locationData.changeAdStatus(true);
+                      Navigator.of(context).pop();
+                    } catch (e) {
+                      print('error' + e.toString());
+                    }
 
                     // onNextButtonClicked();
                     // context.pushNamed("confirmOrder");
