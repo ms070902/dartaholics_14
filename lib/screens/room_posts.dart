@@ -694,6 +694,7 @@ class _RoomAdsState extends State<RoomAds> {
                           child: const PreferencesScreen(),
                           type: PageTransitionType.fade,
                         ),
+                        occupancy: occupancy[currentindex],
                       );
                     } catch (e) {
                       print('error' + e.toString());

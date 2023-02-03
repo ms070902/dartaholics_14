@@ -19,6 +19,7 @@ class FlatmatePayload extends MapView<String, dynamic> {
   final String fileUrl3;
   final String contact;
   final String description;
+  final String occupancy;
 
   FlatmatePayload({
     required this.displayName,
@@ -32,6 +33,7 @@ class FlatmatePayload extends MapView<String, dynamic> {
     required this.fileUrl3,
     required this.contact,
     required this.description,
+    required this.occupancy,
   }) : super({
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.location: location,
@@ -44,5 +46,6 @@ class FlatmatePayload extends MapView<String, dynamic> {
           FirebaseFieldName.description: description,
           FirebaseFieldName.displayName: displayName,
           FirebaseFieldName.userDPUrl: userDPURL,
+          FirebaseFieldName.occupancy: occupancy,
         });
 }

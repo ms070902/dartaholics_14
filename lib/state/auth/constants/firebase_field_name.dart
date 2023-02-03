@@ -20,6 +20,7 @@ class FirebaseFieldName {
   static const amenities = 'amenities';
   static const description = 'description';
   static const userDPUrl = 'userDPUrl';
+  static const occupancy = 'occupancy';
 
   const FirebaseFieldName._();
 }
