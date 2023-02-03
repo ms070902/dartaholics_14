@@ -47,18 +47,6 @@ class _RoomAdsState extends State<RoomAds> {
   List gender = ['Male', 'Female', 'Any'];
   List options = ['Show', 'Hide'];
 
-  List image = [
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png',
-    'assets/flat.png'
-  ];
-
   void onPickImageButtonClicked() async {
     final tempImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -120,8 +108,6 @@ class _RoomAdsState extends State<RoomAds> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     time = TimeOfDay.now();
     loadList();
@@ -141,15 +127,15 @@ class _RoomAdsState extends State<RoomAds> {
   loadList() {
     itemList = [];
     selectedList = [];
-    itemList.add(Item("assets/television.png", 1, 'Tv'));
-    itemList.add(Item("assets/fridge.png", 2, 'Fridge'));
-    itemList.add(Item("assets/kitchen.png", 3, 'Kitchen'));
-    itemList.add(Item("assets/wifi.png", 4, 'Wifi'));
-    itemList.add(Item("assets/washingmachine.png", 5, 'Machine'));
-    itemList.add(Item("assets/airconditioner.png", 6, 'AC'));
-    itemList.add(Item("assets/thunderbolt.png", 7, 'Backup'));
-    itemList.add(Item("assets/placeholder.png", 8, 'Cook'));
-    itemList.add(Item("assets/cooking.png", 9, 'Parking'));
+    itemList.add(Item("assets/images/television.png", 1, 'Tv'));
+    itemList.add(Item("assets/images/fridge.png", 2, 'Fridge'));
+    itemList.add(Item("assets/images/kitchen.png", 3, 'Kitchen'));
+    itemList.add(Item("assets/images/wifi.png", 4, 'Wifi'));
+    itemList.add(Item("assets/images/washingmachine.png", 5, 'Machine'));
+    itemList.add(Item("assets/images/airconditioner.png", 6, 'AC'));
+    itemList.add(Item("assets/images/thunderbolt.png", 7, 'Backup'));
+    itemList.add(Item("assets/images/placeholder.png", 8, 'Cook'));
+    itemList.add(Item("assets/images/cooking.png", 9, 'Parking'));
   }
 
   @override
@@ -271,7 +257,7 @@ class _RoomAdsState extends State<RoomAds> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Image.asset(
-                                "assets/flat.png",
+                                "assets/images/flat.png",
                                 width: 170,
                                 height: 190,
                                 color: Colors.black.withOpacity(0.4),
@@ -307,7 +293,7 @@ class _RoomAdsState extends State<RoomAds> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: Image.asset(
-                                    "assets/flat.png",
+                                    "assets/images/flat.png",
                                     width: 100,
                                     height: 100,
                                     color: Colors.black.withOpacity(0.4),
@@ -339,7 +325,7 @@ class _RoomAdsState extends State<RoomAds> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: Image.asset(
-                                    "assets/flat.png",
+                                    "assets/images/flat.png",
                                     width: 100,
                                     height: 87,
                                     color: Colors.black.withOpacity(0.4),

@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _searchtextcontroller = TextEditingController();
+  final TextEditingController _searchtextcontroller = TextEditingController();
   var _searchKey = '';
 
   @override

@@ -1,5 +1,6 @@
 import 'package:dartaholics/providers/ad_created_provider.dart';
 import 'package:dartaholics/screens/login_signup_choice.dart';
+import 'package:dartaholics/screens/preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const LoginSignupChoiceScreen(),
+      home: const PreferencesScreen(),
     );
   }
 }
