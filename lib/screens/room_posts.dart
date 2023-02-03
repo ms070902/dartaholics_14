@@ -676,6 +676,7 @@ class _RoomAdsState extends State<RoomAds> {
                         description: description,
                         displayName: displayName ?? 'Flat Buddy',
                         userDPURL: userDPUrl ?? '',
+                        occupancy: occupancy[currentindex],
                       );
 
                       await FirebaseFirestore.instance
