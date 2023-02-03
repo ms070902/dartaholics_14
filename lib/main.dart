@@ -1,6 +1,9 @@
 import 'package:dartaholics/providers/ad_created_provider.dart';
+import 'package:dartaholics/screens/home_screen.dart';
 import 'package:dartaholics/screens/login_signup_choice.dart';
+import 'package:dartaholics/screens/navigation_screen.dart';
 import 'package:dartaholics/screens/preferences.dart';
+import 'package:dartaholics/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -40,7 +43,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const PreferencesScreen(),
+      initialRoute: SplashScreen.id,
+      routes: {
+        SplashScreen.id: (context) => const SplashScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+        LoginSignupChoiceScreen.id: (context) =>
+            const LoginSignupChoiceScreen(),
+        NavigationScreen.id: (context) => const NavigationScreen(),
+      },
     );
   }
 }

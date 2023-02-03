@@ -2,6 +2,7 @@ import 'package:dartaholics/screens/complete_profile_screen.dart';
 import 'package:dartaholics/state/auth/backend/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -9,6 +10,7 @@ import 'navigation_screen.dart';
 
 class LoginSignupChoiceScreen extends StatefulWidget {
   const LoginSignupChoiceScreen({super.key});
+  static const String id = 'welcome-screen';
 
   @override
   State<LoginSignupChoiceScreen> createState() =>
@@ -17,6 +19,47 @@ class LoginSignupChoiceScreen extends StatefulWidget {
 
 class _LoginSignupChoiceScreenState extends State<LoginSignupChoiceScreen> {
   late Size size;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Future<void> signup() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential authCredential = GoogleAuthProvider.credential(
+            idToken: googleSignInAuthentication.idToken,
+            accessToken: googleSignInAuthentication.accessToken);
+
+        // Getting users credential
+        UserCredential result = await auth.signInWithCredential(authCredential);
+        Map? user = result.additionalUserInfo!.profile;
+
+        if (user != null) {
+          bool isDone = await _googleLogin();
+          if (!isDone) {
+            await googleSignIn.disconnect();
+          }
+        } else {
+          // FreqUsedWidgets.showSnackBar(context, "Something went wrong retry.");
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<bool> _googleLogin() async {
+    try {
+      Navigator.of(context).pop();
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -60,19 +103,20 @@ class _LoginSignupChoiceScreenState extends State<LoginSignupChoiceScreen> {
               label: const Text(
                 "Sign Up With Google",
               ),
-              onPressed: () {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                var user = provider.googleLogin();
+              onPressed: () async {
+                // final provider =
+                //     Provider.of<GoogleSignInProvider>(context, listen: false);
+                // var user = provider.signup(context);
+                await signup();
 
-                if (user != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NavigationScreen(),
-                    ),
-                  );
-                }
+                // if (user != null) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => const NavigationScreen(),
+                //     ),
+                //   );
+                // }
               },
             ),
             const SizedBox(

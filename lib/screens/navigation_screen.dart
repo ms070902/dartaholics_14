@@ -1,4 +1,5 @@
 import 'package:dartaholics/screens/home_screen.dart';
+import 'package:dartaholics/screens/roomate_screen.dart';
 import 'package:dartaholics/screens/selection_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ import '../widgets/custom_bottom_nav.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
+  static const String id = 'nav-screen';
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
@@ -27,13 +29,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     List<Widget> pages = [
       const HomeScreen(),
       const RoomRommateSelectionScreen(location: ""),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Settings",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      MoreScreen()
     ];
     return IndexedStack(
       index: _currentIndex,
@@ -43,7 +39,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   Widget _buildBottomBar() {
     return CustomAnimatedBottomBar(
-      containerHeight: 70,
+      containerHeight: 55,
       backgroundColor: Colors.white,
       selectedIndex: _currentIndex,
       showElevation: true,
@@ -66,11 +62,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
-          icon: const Icon(Icons.message),
+          icon: const Icon(Icons.more_horiz),
           title: const Text(
-            'Messages ',
+            'More',
           ),
-          activeColor: Colors.pink,
+          activeColor: Colors.blueAccent,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),

@@ -181,7 +181,7 @@ class _NoAdWidgetState extends State<NoAdWidget> {
           height: 20,
         ),
         Image.asset(
-          "assets/roommate.png",
+          "assets/images/roommate.png",
           width: 100,
           height: 100,
         ),

@@ -12,6 +12,7 @@ class Tab1 extends StatefulWidget {
 class _Tab1State extends State<Tab1> {
   List itemList = ["Siddesh", "Shrushti", "Prasad", "Mihir", "Rahul", "Satish"];
   List itemListCost = ["4500", "5000", "8900", "7000", "6000", "4500"];
+  List itemListMatching = ["45", "60", "55", "35", "20", "40"];
   List itemListOccupancy = [
     "Shared",
     "Single",
@@ -28,12 +29,47 @@ class _Tab1State extends State<Tab1> {
     "Kandarpada Bhakti Complex Dahisar, Mumbai",
     " Andheri-kurla Rd Andheri, Mumbai,Borivli,400059"
   ];
+  Future<void> _showSimpleDialog() async {
+    await showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            backgroundColor: Colors.yellow,
+            // <-- SEE HERE
+            title: const Text(
+              'You both have same preferences for:',
+              style: TextStyle(fontSize: 15),
+            ),
+            children: <Widget>[
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('• Night Owl'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('• Non Alcoholic'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('• Gym Freak'),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Padding(
           padding: const EdgeInsets.only(left: 5, right: 5),
           child: Column(
@@ -43,7 +79,7 @@ class _Tab1State extends State<Tab1> {
                 height: 25,
               ),
               GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   itemCount: itemList.length,
                   shrinkWrap: true,
@@ -52,7 +88,7 @@ class _Tab1State extends State<Tab1> {
                       // mainAxisExtent: 175,
                       childAspectRatio: 0.8,
                       crossAxisSpacing: 5,
-                      mainAxisSpacing: 5),
+                      mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
                     return Container(
                       height: 200,
@@ -79,13 +115,10 @@ class _Tab1State extends State<Tab1> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(8.0)),
                                       color: Colors.white,
+                                      image: const DecorationImage(
+                                          image: NetworkImage(
+                                              "https://instagram.fbom8-1.fna.fbcdn.net/v/t51.2885-19/297723103_131991389535733_3394524039300739566_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fbom8-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=xT6_f9nZgxsAX-l3nwC&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfChe5FyVRfOvxgpy-aBinnuw9rt39IRg1rDkNBC9X5nWw&oe=63E1BDB9&_nc_sid=8fd12b")),
                                       border: Border.all(width: 1)),
-                                  child: Image.network(
-                                    "https://cdn-icons-png.flaticon.com/512/6124/6124818.png",
-                                    height: 50,
-                                    width: 50,
-                                    fit: BoxFit.cover,
-                                  ),
                                 ),
                                 Positioned(
                                     right: 5,
@@ -105,16 +138,19 @@ class _Tab1State extends State<Tab1> {
                                           ),
                                         ],
                                       ),
-                                      child: const Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 5, top: 7),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 5, top: 7),
                                         child: Flexible(
-                                            child: Text(
-                                          "55% matching",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                            child: InkWell(
+                                          onTap: _showSimpleDialog,
+                                          child: Text(
+                                            "${itemListMatching[index]}% matching",
+                                            style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         )),
                                       ),
                                     ))
@@ -140,14 +176,14 @@ class _Tab1State extends State<Tab1> {
                                   color: Colors.black.withOpacity(0.5)),
                             ),
                             const SizedBox(
-                              height: 25,
+                              height: 20,
                             ),
                             Row(
                               children: [
                                 const Spacer(),
                                 Column(
                                   children: [
-                                    Text("Rent"),
+                                    const Text("Rent"),
                                     Text("₹${itemListCost[index]}")
                                   ],
                                 ),
@@ -160,7 +196,11 @@ class _Tab1State extends State<Tab1> {
                                 ),
                                 const Spacer(),
                                 Column(
-                                  children: [Text("Occupancy"), Text("Shared")],
+                                  // ignore: prefer_const_literals_to_create_immutables
+                                  children: [
+                                    const Text("Occupancy"),
+                                    const Text("Shared")
+                                  ],
                                 ),
                                 const Spacer(),
                               ],

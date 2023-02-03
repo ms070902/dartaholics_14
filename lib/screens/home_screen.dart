@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  static const String id = 'home-screen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
