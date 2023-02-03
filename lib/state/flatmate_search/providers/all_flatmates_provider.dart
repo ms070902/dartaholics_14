@@ -10,7 +10,10 @@ final allFlatmatesProvider = StreamProvider<Iterable<Flatmate>>((ref) {
 
   final sub = FirebaseFirestore.instance
       .collection(FirebaseCollectionName.flatmateSearch)
-      .orderBy(FirebaseFieldName.cost)
+      .orderBy(
+        FirebaseFieldName.cost,
+        descending: false,
+      )
       .snapshots()
       .listen((snapshot) {
     final flats = snapshot.docs.map((doc) {
@@ -23,10 +26,7 @@ final allFlatmatesProvider = StreamProvider<Iterable<Flatmate>>((ref) {
       String fileUrl3 = doc.data()[FirebaseFieldName.fileUrl3].toString();
       String contact = doc.data()[FirebaseFieldName.contact].toString();
       String location = doc.data()[FirebaseFieldName.location].toString();
-      String lat = doc.data()[FirebaseFieldName.lat].toString();
-      String long = doc.data()[FirebaseFieldName.long].toString();
 
-      List<dynamic> amenities = doc.data()[FirebaseFieldName.amenities];
       String cost = doc.data()[FirebaseFieldName.cost] as String;
       String desc = doc.data()[FirebaseFieldName.description] as String;
       return Flatmate(
@@ -39,9 +39,6 @@ final allFlatmatesProvider = StreamProvider<Iterable<Flatmate>>((ref) {
         fileUrl2: fileUrl2,
         fileUrl3: fileUrl3,
         contact: contact,
-        amenities: amenities,
-        lat: lat,
-        long: long,
         description: desc,
       );
     });

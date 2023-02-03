@@ -9,8 +9,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
+import 'package:provider/provider.dart';
 
+import '../models/item.dart';
+import '../providers/ad_created_provider.dart';
 import '../widgets/griditem.dart';
 
 class RoomAds extends StatefulWidget {
@@ -21,6 +23,10 @@ class RoomAds extends StatefulWidget {
 }
 
 class _RoomAdsState extends State<RoomAds> {
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  final displayName = FirebaseAuth.instance.currentUser!.displayName;
+  final userDPUrl = FirebaseAuth.instance.currentUser!.photoURL;
+
   var _locationController = TextEditingController();
   TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
   var _rentController = TextEditingController();
@@ -40,6 +46,18 @@ class _RoomAdsState extends State<RoomAds> {
   List occupancy = ['Single', 'Shared', 'Any'];
   List gender = ['Male', 'Female', 'Any'];
   List options = ['Show', 'Hide'];
+
+  List image = [
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png',
+    'assets/flat.png'
+  ];
 
   void onPickImageButtonClicked() async {
     final tempImage =
@@ -136,6 +154,7 @@ class _RoomAdsState extends State<RoomAds> {
 
   @override
   Widget build(BuildContext context) {
+    final locationData = Provider.of<LocationProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -639,76 +658,54 @@ class _RoomAdsState extends State<RoomAds> {
                     backgroundColor: Colors.green,
                   ),
                   onPressed: () async {
-                    // final currentUser = FirebaseAuth.instance.currentUser!.uid ?? 'hh';
                     String location = _locationController.text;
-                    String rent = _rentController.text;
+                    String cost = _rentController.text;
+                    String contact = _numberController.text;
+                    String description = _descriptionController.text;
                     File img1 = demo!.absolute;
                     File img2 = demo1!.absolute;
                     File img3 = demo2!.absolute;
                     DateTime date = selectedDate;
-                    List<Item> amenities = selectedList;
-                    String contact = _numberController.text;
-                    String description = _descriptionController.text;
 
-                    final fileName1 = const Uuid().v4();
-                    final fileName2 = const Uuid().v4();
-                    final fileName3 = const Uuid().v4();
-                    // final originalFileRef1 = FirebaseStorage.instance
-                    //     .ref()
-                    //     // .child("pmMGmk1eLZSKhgEfFjl1DtzHxdb2")
-                    //     .child('images')
-                    //     .child(fileName1);
-                    // final originalFileRef2 = FirebaseStorage.instance
-                    //     .ref()
-                    //     // .child('pmMGmk1eLZSKhgEfFjl1DtzHxdb2')
-                    //     .child('images')
-                    //     .child(fileName2);
-                    // final originalFileRef3 = FirebaseStorage.instance
-                    //     .ref()
-                    //     // .child('pmMGmk1eLZSKhgEfFjl1DtzHxdb2')
-                    //     .child('images')
-                    //     .child(fileName3);
-
+                    final ref1 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/1');
+                    final ref2 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/2');
+                    final ref3 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/3');
                     try {
-                      print(selectedList);
-                      print(amenities);
-                      ///upload image
-                      // final fileUrl1 = await originalFileRef1.putFile(img1);
-                      // final fileUrl2 = await originalFileRef2.putFile(img2);
-                      // final fileUrl3 = await originalFileRef3.putFile(img3);
-
-                      final ref1 = firebase_storage.FirebaseStorage.instance
-                      .ref('/images/1');
-                      final ref2 = firebase_storage.FirebaseStorage.instance
-                          .ref('/images/2');
-                      final ref3 = firebase_storage.FirebaseStorage.instance
-                          .ref('/images/3');
-                      final fileUrl1 = ref1.putFile(img1);
-                      final fileUrl2 = ref2.putFile(img2);
-                      final fileUrl3 = ref3.putFile(img3);
-
+                      final file1 = ref1.putFile(img1);
+                      final file2 = ref1.putFile(img2);
+                      final file3 = ref1.putFile(img3);
 
                       final payload = FlatmatePayload(
-                        userId: 'pmMGmk1eLZSKhgEfFjl1DtzHxdb2',
+                        userId: userId,
                         location: location,
                         availableFrom: date,
-                        cost: rent,
+                        cost: cost,
                         fileUrl1: await ref1.getDownloadURL(),
                         fileUrl2: await ref2.getDownloadURL(),
                         fileUrl3: await ref3.getDownloadURL(),
                         contact: contact,
                         description: description,
+                        displayName: displayName ?? 'Flat Buddy',
+                        userDPURL: userDPUrl ?? '',
                       );
 
                       await FirebaseFirestore.instance
                           .collection(FirebaseCollectionName.flatmateSearch)
-                          .add(payload);
-                      print('done');
+                          .add(
+                            payload,
+                          );
 
-                      // context.pushNamed("confirmOrder");
+                      locationData.changeAdStatus(true);
+                      Navigator.of(context).pop();
                     } catch (e) {
                       print('error' + e.toString());
                     }
+
+                    // onNextButtonClicked();
+                    // context.pushNamed("confirmOrder");
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 5),
@@ -726,5 +723,3 @@ class _RoomAdsState extends State<RoomAds> {
     );
   }
 }
-
-
