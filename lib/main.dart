@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => const HomeScreen(),
         LoginSignupChoiceScreen.id: (context) =>
             const LoginSignupChoiceScreen(),
-        NavigationScreen.id: (context) => const NavigationScreen(),
+        NavigationScreen.id: (context) =>
+            const NavigationScreen(currentIndex: 0),
       },
     );
   }

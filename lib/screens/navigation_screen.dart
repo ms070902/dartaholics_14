@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_bottom_nav.dart';
 
 class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({super.key});
+  const NavigationScreen({super.key, required this.currentIndex});
   static const String id = 'nav-screen';
+  final int currentIndex;
 
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
@@ -16,6 +17,7 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   int _currentIndex = 0;
+  int _cur = 1;
   final _inactiveColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
@@ -44,11 +46,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return CustomAnimatedBottomBar(
       containerHeight: 55,
       backgroundColor: Colors.white,
-      selectedIndex: _currentIndex,
+      selectedIndex: widget.currentIndex == 0 ? _currentIndex : _cur,
       showElevation: true,
       itemCornerRadius: 24,
       curve: Curves.easeIn,
-      onItemSelected: (index) => setState(() => _currentIndex = index),
+      onItemSelected: (index) => setState(() {
+        _currentIndex = index;
+        _cur = index;
+      }),
       items: <BottomNavyBarItem>[
         BottomNavyBarItem(
           icon: const Icon(Icons.apps),

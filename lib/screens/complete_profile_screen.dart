@@ -301,7 +301,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           Navigator.push(
                             context,
                             PageTransition(
-                              child: const NavigationScreen(),
+                              child: const NavigationScreen(currentIndex: 0),
                               type: PageTransitionType.fade,
                             ),
                           );

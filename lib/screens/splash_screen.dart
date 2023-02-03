@@ -35,14 +35,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-          child: Hero(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Hero(
               tag: 'logo',
               child: Image.asset(
                 "assets/images/roommate.png",
-                width: 100,
-                height: 100,
-              ))),
+                width: 200,
+                height: 200,
+              )),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text(
+            "Flatसाथी",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+          )
+        ],
+      )),
     );
   }
 }

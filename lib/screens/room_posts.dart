@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartaholics/screens/preferences.dart';
 import 'package:dartaholics/state/auth/constants/firebase_collection_name.dart';
 import 'package:dartaholics/state/auth/models/itemClass.dart';
 import 'package:dartaholics/state/flatmate_search/flatmate_payload.dart';
@@ -9,11 +10,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../models/item.dart';
 import '../providers/ad_created_provider.dart';
 import '../widgets/griditem.dart';
+import 'navigation_screen.dart';
 
 class RoomAds extends StatefulWidget {
   const RoomAds({super.key});
@@ -644,48 +647,54 @@ class _RoomAdsState extends State<RoomAds> {
                     backgroundColor: Colors.green,
                   ),
                   onPressed: () async {
-                    String location = _locationController.text;
-                    String cost = _rentController.text;
-                    String contact = _numberController.text;
-                    String description = _descriptionController.text;
-                    File img1 = demo!.absolute;
-                    File img2 = demo1!.absolute;
-                    File img3 = demo2!.absolute;
-                    DateTime date = selectedDate;
+                    // String location = _locationController.text;
+                    // String cost = _rentController.text;
+                    // String contact = _numberController.text;
+                    // String description = _descriptionController.text;
+                    // File img1 = demo!.absolute;
+                    // File img2 = demo1!.absolute;
+                    // File img3 = demo2!.absolute;
+                    // DateTime date = selectedDate;
 
-                    final ref1 = firebase_storage.FirebaseStorage.instance
-                        .ref('/images/1');
-                    final ref2 = firebase_storage.FirebaseStorage.instance
-                        .ref('/images/2');
-                    final ref3 = firebase_storage.FirebaseStorage.instance
-                        .ref('/images/3');
+                    // final ref1 = firebase_storage.FirebaseStorage.instance
+                    //     .ref('/images/1');
+                    // final ref2 = firebase_storage.FirebaseStorage.instance
+                    //     .ref('/images/2');
+                    // final ref3 = firebase_storage.FirebaseStorage.instance
+                    //     .ref('/images/3');
                     try {
-                      final file1 = ref1.putFile(img1);
-                      final file2 = ref1.putFile(img2);
-                      final file3 = ref1.putFile(img3);
+                      // final file1 = ref1.putFile(img1);
+                      // final file2 = ref1.putFile(img2);
+                      // final file3 = ref1.putFile(img3);
 
-                      final payload = FlatmatePayload(
-                        userId: userId,
-                        location: location,
-                        availableFrom: date,
-                        cost: cost,
-                        fileUrl1: await ref1.getDownloadURL(),
-                        fileUrl2: await ref2.getDownloadURL(),
-                        fileUrl3: await ref3.getDownloadURL(),
-                        contact: contact,
-                        description: description,
-                        displayName: displayName ?? 'Flat Buddy',
-                        userDPURL: userDPUrl ?? '',
+                      // final payload = FlatmatePayload(
+                      //   userId: userId,
+                      //   location: location,
+                      //   availableFrom: date,
+                      //   cost: cost,
+                      //   fileUrl1: await ref1.getDownloadURL(),
+                      //   fileUrl2: await ref2.getDownloadURL(),
+                      //   fileUrl3: await ref3.getDownloadURL(),
+                      //   contact: contact,
+                      //   description: description,
+                      //   displayName: displayName ?? 'Flat Buddy',
+                      //   userDPURL: userDPUrl ?? '',
+                      // );
+
+                      // await FirebaseFirestore.instance
+                      //     .collection(FirebaseCollectionName.flatmateSearch)
+                      //     .add(
+                      //       payload,
+                      //     );
+
+                      // locationData.changeAdStatus(true);
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: const PreferencesScreen(),
+                          type: PageTransitionType.fade,
+                        ),
                       );
-
-                      await FirebaseFirestore.instance
-                          .collection(FirebaseCollectionName.flatmateSearch)
-                          .add(
-                            payload,
-                          );
-
-                      locationData.changeAdStatus(true);
-                      Navigator.of(context).pop();
                     } catch (e) {
                       print('error' + e.toString());
                     }

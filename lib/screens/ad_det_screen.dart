@@ -49,7 +49,20 @@ class _AdDetailState extends State<AdDetail> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: Stack(children: [
-            Image.network(e)
+            CachedNetworkImage(
+              fit: BoxFit.fitHeight,
+              width: 1000,
+              // height: 300,
+
+              imageUrl: e,
+              // fit: BoxFit.cover,
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              progressIndicatorBuilder: (context, url, progress) => Center(
+                child: CircularProgressIndicator(
+                  value: progress.progress,
+                ),
+              ),
+            ),
             // Positioned(
             //   right: 0,
             //   child: Container(
@@ -129,6 +142,33 @@ class _AdDetailState extends State<AdDetail> {
                           );
                         }).toList(),
                       ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        "${widget.string!["display_name"]}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 22),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "${widget.string!["location"]}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 22),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: 100,
+                            height: 20,
+                            decoration: BoxDecoration(color: Colors.yellow),
+                            child: Text("Hi"),
+                          );
+                        },
+                      )
                     ],
                   ),
                 ],

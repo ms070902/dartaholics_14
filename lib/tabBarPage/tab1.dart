@@ -96,173 +96,176 @@ class _Tab1State extends State<Tab1> {
                 const SizedBox(
                   height: 15,
                 ),
-                FirestoreAnimatedGrid(
-                    physics: const NeverScrollableScrollPhysics(),
-                    query: _db,
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    // mainAxisExtent: 175,
-                    childAspectRatio: 0.8,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 10,
-                    itemBuilder: (context, snapshot, animation, index) {
-                      // print(snapshot!["contact"]);
-                      // print("hi");
-                      return FadeTransition(
-                          opacity: animation,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: AdDetail(string: snapshot),
-                                  type: PageTransitionType.fade,
-                                ),
-                              );
-                            },
-                            child: Container(
-                                height: 200,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    // border: Border.all(width: 1),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 5,
-                                          color: Colors.grey.withOpacity(0.4))
-                                    ],
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 25),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            width: 80,
-                                            height: 80,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(8.0)),
-                                                color: Colors.white,
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        "${snapshot!["userDPUrl"]}")),
-                                                border: Border.all(width: 1)),
-                                          ),
-                                          Positioned(
-                                              right: 5,
-                                              bottom: 9,
-                                              child: Container(
-                                                width: 70,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.5),
-                                                      spreadRadius: 3,
-                                                      blurRadius: 7,
-                                                      offset: const Offset(0,
-                                                          3), // changes position of shadow
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5, top: 7),
-                                                  child: Flexible(
-                                                      child: InkWell(
-                                                    onTap: _showSimpleDialog,
-                                                    child: const Text(
-                                                      "50% matching",
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  )),
-                                                ),
-                                              ))
-                                        ],
-                                      ),
-
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "${snapshot!["display_name"]}",
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 20),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "${snapshot!["location"]}",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color:
-                                                Colors.black.withOpacity(0.5)),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Spacer(),
-                                          Column(
-                                            children: [
-                                              const Text("Rent"),
-                                              Text("₹${snapshot["cost"]}")
-                                            ],
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            "|",
-                                            style: TextStyle(
-                                                fontSize: 25,
-                                                color: Colors.black
-                                                    .withOpacity(0.5)),
-                                          ),
-                                          const Spacer(),
-                                          Column(
-                                            // ignore: prefer_const_literals_to_create_immutables
-                                            children: [
-                                              const Text("Occupancy"),
-                                              Text("${snapshot["occupancy"]}")
-                                            ],
-                                          ),
-                                          const Spacer(),
-                                        ],
-                                      )
-                                      // Text("${itemList[index].ammenity}")
-                                    ],
+                Expanded(
+                  child: FirestoreAnimatedGrid(
+                      physics: const NeverScrollableScrollPhysics(),
+                      query: _db,
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      // mainAxisExtent: 175,
+                      childAspectRatio: 0.8,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 10,
+                      itemBuilder: (context, snapshot, animation, index) {
+                        // print(snapshot!["contact"]);
+                        // print("hi");
+                        return FadeTransition(
+                            opacity: animation,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: AdDetail(string: snapshot),
+                                    type: PageTransitionType.fade,
                                   ),
-                                )),
-                          ));
-                    }
-                    // itemBuilder: (
-                    //   BuildContext context,
-                    //   DocumentSnapshot snapshot,
-                    //   Animation<double> animation,
-                    //   int index,
-                    // ) =>
-                    //     FadeTransition(
-                    //   opacity: animation,
-                    //   child: MessageGridTile(
-                    //     index: index,
-                    //     document: snapshot,
-                    //     onTap: _removeMessage,
-                    //   ),
-                    // ),
-                    ),
+                                );
+                              },
+                              child: Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      // border: Border.all(width: 1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            blurRadius: 5,
+                                            color: Colors.grey.withOpacity(0.4))
+                                      ],
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 25),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(8.0)),
+                                                  color: Colors.white,
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          "${snapshot!["userDPUrl"]}")),
+                                                  border: Border.all(width: 1)),
+                                            ),
+                                            Positioned(
+                                                right: 5,
+                                                bottom: 9,
+                                                child: Container(
+                                                  width: 70,
+                                                  height: 20,
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black
+                                                            .withOpacity(0.5),
+                                                        spreadRadius: 3,
+                                                        blurRadius: 7,
+                                                        offset: const Offset(0,
+                                                            3), // changes position of shadow
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 5, top: 7),
+                                                    child: Flexible(
+                                                        child: InkWell(
+                                                      onTap: _showSimpleDialog,
+                                                      child: const Text(
+                                                        "50% matching",
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )),
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "${snapshot!["display_name"]}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 20),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "${snapshot!["location"]}",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black
+                                                  .withOpacity(0.5)),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Spacer(),
+                                            Column(
+                                              children: [
+                                                const Text("Rent"),
+                                                Text("₹${snapshot["cost"]}")
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              "|",
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5)),
+                                            ),
+                                            const Spacer(),
+                                            Column(
+                                              // ignore: prefer_const_literals_to_create_immutables
+                                              children: [
+                                                const Text("Occupancy"),
+                                                Text("${snapshot["occupancy"]}")
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                          ],
+                                        )
+                                        // Text("${itemList[index].ammenity}")
+                                      ],
+                                    ),
+                                  )),
+                            ));
+                      }
+                      // itemBuilder: (
+                      //   BuildContext context,
+                      //   DocumentSnapshot snapshot,
+                      //   Animation<double> animation,
+                      //   int index,
+                      // ) =>
+                      //     FadeTransition(
+                      //   opacity: animation,
+                      //   child: MessageGridTile(
+                      //     index: index,
+                      //     document: snapshot,
+                      //     onTap: _removeMessage,
+                      //   ),
+                      // ),
+                      ),
+                ),
                 // GridView.builder(
                 //     physics: const NeverScrollableScrollPhysics(),
                 //     scrollDirection: Axis.vertical,

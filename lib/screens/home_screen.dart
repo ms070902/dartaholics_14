@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: Text(
-                    "Find Your\nPerfect FlatMate",
+                    "Find Your\nPerfect Flatसाथी",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 28,
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Text(
-                    "Having a right FlatMate is a bliss,and we're on a mission to help you find that",
+                    "Having a right Flatसाथी is a bliss,and we're on a mission to help you find that",
                     style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 15,
@@ -118,11 +118,99 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.7,
+                  width: double.infinity,
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 244, 243, 243),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20, top: 20),
+                              child: Text(
+                                "Essential Services",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 20),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 15, top: 15),
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                    color: Colors.green.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Row(
+                                    children: [
+                                      Text("Buy Subscription"),
+                                      Spacer(),
+                                      Icon(Icons.arrow_right_alt)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 15, top: 10),
+                              child: Container(
+                                width: double.infinity,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                    color: Colors.green.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Row(
+                                    children: [
+                                      Text("Rental Agreement"),
+                                      Spacer(),
+                                      Icon(Icons.arrow_right_alt)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 15, top: 10),
+                              child: Container(
+                                width: double.infinity,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                    color: Colors.green.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Row(
+                                    children: [
+                                      Text("Get our premier services"),
+                                      Spacer(),
+                                      Icon(Icons.arrow_right_alt)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
                 ),
               ]),
             ),
