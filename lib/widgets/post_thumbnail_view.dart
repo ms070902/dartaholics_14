@@ -1,15 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartaholics/state/flatmate_search/flatmate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PostThumbnailView extends StatelessWidget {
-  final Flatmate flatmate;
-  final VoidCallback onTapped;
   const PostThumbnailView({
     Key? key,
     required this.flatmate,
     required this.onTapped,
   }) : super(key: key);
+  final DocumentSnapshot<Map>? flatmate;
+  final VoidCallback onTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class PostThumbnailView extends StatelessWidget {
               ),
               Text(
                 // "${itemListAddress[index]}",
-                flatmate.location,
+                flatmate!["location"],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 12, color: Colors.black.withOpacity(0.5)),
@@ -97,7 +98,7 @@ class PostThumbnailView extends StatelessWidget {
                   Column(
                     children: [
                       Text('Rent'),
-                      Text(flatmate.cost),
+                      Text(flatmate!["cost"]),
                     ],
                   ),
                   const Spacer(),

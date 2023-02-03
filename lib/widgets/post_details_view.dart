@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PostDetailsView extends ConsumerStatefulWidget {
-  final Flatmate flatmate;
+  final Map flatmate;
 
   const PostDetailsView({
     required this.flatmate,
@@ -18,10 +18,9 @@ class PostDetailsView extends ConsumerStatefulWidget {
 class _PostDetailsView extends ConsumerState<PostDetailsView> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Flat'),
+        title: const Text('Flat'),
       ),
     );
   }

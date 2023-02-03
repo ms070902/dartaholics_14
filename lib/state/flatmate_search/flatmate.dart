@@ -5,7 +5,7 @@ import 'package:dartaholics/state/auth/typedef.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
-class Flatmate{
+class Map {
   final String postId;
   final UserId userId;
   final String location;
@@ -17,7 +17,7 @@ class Flatmate{
   final String contact;
   final String description;
 
-  const Flatmate({
+  const Map({
     required this.postId,
     required this.userId,
     required this.location,

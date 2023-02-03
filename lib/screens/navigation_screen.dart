@@ -1,6 +1,7 @@
 import 'package:dartaholics/screens/home_screen.dart';
 import 'package:dartaholics/screens/roomate_screen.dart';
 import 'package:dartaholics/screens/selection_screen.dart';
+import 'package:dartaholics/widgets/post_grid_view.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_bottom_nav.dart';
@@ -28,7 +29,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget getBody() {
     List<Widget> pages = [
       const HomeScreen(),
-      const RoomRommateSelectionScreen(location: ""),
+      RoomRommateSelectionScreen(
+        location: '',
+      ),
       MoreScreen()
     ];
     return IndexedStack(

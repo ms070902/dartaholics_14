@@ -5,8 +5,8 @@ import 'package:dartaholics/state/auth/constants/firebase_field_name.dart';
 import 'package:dartaholics/state/flatmate_search/flatmate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final allFlatmatesProvider = StreamProvider<Iterable<Flatmate>>((ref) {
-  final controller = StreamController<Iterable<Flatmate>>();
+final allFlatmatesProvider = StreamProvider<Iterable<Map>>((ref) {
+  final controller = StreamController<Iterable<Map>>();
 
   final sub = FirebaseFirestore.instance
       .collection(FirebaseCollectionName.flatmateSearch)
@@ -29,7 +29,7 @@ final allFlatmatesProvider = StreamProvider<Iterable<Flatmate>>((ref) {
 
       String cost = doc.data()[FirebaseFieldName.cost] as String;
       String desc = doc.data()[FirebaseFieldName.description] as String;
-      return Flatmate(
+      return Map(
         postId: postId,
         userId: userId,
         location: location,
