@@ -2,14 +2,10 @@ import 'package:dartaholics/providers/ad_created_provider.dart';
 import 'package:dartaholics/screens/home_screen.dart';
 import 'package:dartaholics/screens/login_signup_choice.dart';
 import 'package:dartaholics/screens/navigation_screen.dart';
-import 'package:dartaholics/screens/preferences.dart';
 import 'package:dartaholics/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:provider/provider.dart';
-
 import 'firebase_options.dart';
 import 'package:provider/provider.dart' as prov;
 import 'state/auth/backend/google_sign_in.dart';

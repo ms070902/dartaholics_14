@@ -647,45 +647,46 @@ class _RoomAdsState extends State<RoomAds> {
                     backgroundColor: Colors.green,
                   ),
                   onPressed: () async {
-                    // String location = _locationController.text;
-                    // String cost = _rentController.text;
-                    // String contact = _numberController.text;
-                    // String description = _descriptionController.text;
-                    // File img1 = demo!.absolute;
-                    // File img2 = demo1!.absolute;
-                    // File img3 = demo2!.absolute;
-                    // DateTime date = selectedDate;
+                    String location = _locationController.text;
+                    String cost = _rentController.text;
+                    String contact = _numberController.text;
+                    String description = _descriptionController.text;
+                    File img1 = demo!.absolute;
+                    File img2 = demo1!.absolute;
+                    File img3 = demo2!.absolute;
+                    DateTime date = selectedDate;
 
-                    // final ref1 = firebase_storage.FirebaseStorage.instance
-                    //     .ref('/images/1');
-                    // final ref2 = firebase_storage.FirebaseStorage.instance
-                    //     .ref('/images/2');
-                    // final ref3 = firebase_storage.FirebaseStorage.instance
-                    //     .ref('/images/3');
+                    final ref1 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/1');
+                    final ref2 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/2');
+                    final ref3 = firebase_storage.FirebaseStorage.instance
+                        .ref('/images/3');
                     try {
-                      // final file1 = ref1.putFile(img1);
-                      // final file2 = ref1.putFile(img2);
-                      // final file3 = ref1.putFile(img3);
+                      final file1 = ref1.putFile(img1);
+                      final file2 = ref1.putFile(img2);
+                      final file3 = ref1.putFile(img3);
 
-                      // final payload = FlatmatePayload(
-                      //   userId: userId,
-                      //   location: location,
-                      //   availableFrom: date,
-                      //   cost: cost,
-                      //   fileUrl1: await ref1.getDownloadURL(),
-                      //   fileUrl2: await ref2.getDownloadURL(),
-                      //   fileUrl3: await ref3.getDownloadURL(),
-                      //   contact: contact,
-                      //   description: description,
-                      //   displayName: displayName ?? 'Flat Buddy',
-                      //   userDPURL: userDPUrl ?? '',
-                      // );
+                      final payload = FlatmatePayload(
+                        userId: userId,
+                        location: location,
+                        availableFrom: date,
+                        cost: cost,
+                        fileUrl1: await ref1.getDownloadURL(),
+                        fileUrl2: await ref2.getDownloadURL(),
+                        fileUrl3: await ref3.getDownloadURL(),
+                        contact: contact,
+                        description: description,
+                        displayName: displayName ?? 'Flat Buddy',
+                        userDPURL: userDPUrl ?? '',
+                        occupancy: occupancy[currentindex],
+                      );
 
-                      // await FirebaseFirestore.instance
-                      //     .collection(FirebaseCollectionName.flatmateSearch)
-                      //     .add(
-                      //       payload,
-                      //     );
+                      await FirebaseFirestore.instance
+                          .collection(FirebaseCollectionName.flatmateSearch)
+                          .add(
+                            payload,
+                          );
 
                       // locationData.changeAdStatus(true);
                       Navigator.push(
@@ -694,7 +695,6 @@ class _RoomAdsState extends State<RoomAds> {
                           child: const PreferencesScreen(),
                           type: PageTransitionType.fade,
                         ),
-                        occupancy: occupancy[currentindex],
                       );
                     } catch (e) {
                       print('error' + e.toString());

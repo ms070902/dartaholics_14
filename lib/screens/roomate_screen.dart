@@ -1,5 +1,7 @@
 import 'package:dartaholics/screens/login_signup_choice.dart';
+import 'package:dartaholics/screens/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '../state/auth/backend/google_sign_in.dart';
@@ -12,6 +14,7 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  int currentindex = -1;
   List itemList = [
     'Edit Requirements',
     'Set Preferences',
@@ -99,15 +102,31 @@ class _MoreScreenState extends State<MoreScreen> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return Container(
-                            alignment: Alignment.center,
-                            width: 100,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.amber.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(15),
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                currentindex = index;
+                              });
+                              currentindex == 1
+                                  ? Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        child: const PreferencesScreen(),
+                                        type: PageTransitionType.fade,
+                                      ),
+                                    )
+                                  : null;
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.amber.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Text("${itemList[index]}  >"),
                             ),
-                            child: Text("${itemList[index]}  >"),
                           );
                         },
                         itemCount: 4,
